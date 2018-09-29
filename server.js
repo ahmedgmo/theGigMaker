@@ -9,6 +9,8 @@ const passport = require('passport')
 const app = express()
 const initMongo = require('./config/mongo')
 
+const mongoose = require("mongoose");
+
 // Setup express server
 app.set('port', process.env.PORT || 3000)
 
@@ -36,5 +38,17 @@ app.listen(app.get('port'))
 
 // Init MongoDB
 initMongo()
+
+
+projectRouter = require("./app/routes/project");
+
+app.use(projectRouter);
+
+
+
+
+
+
+
 
 module.exports = app // for testing

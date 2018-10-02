@@ -2,8 +2,15 @@ var mongoose = require('mongoose');
 
 var Schema = mongoose.Schema;
 
+const ProjectUser = new Schema({
 
-var newProject = new Schema({
+  approved : Boolean,
+  userId : {
+    type: object.types.ObjectId,
+    ref: "User"}
+})
+
+var Project = new Schema({
 
     title : {
        type: String,
@@ -36,16 +43,15 @@ var newProject = new Schema({
          "Location is required"
        ]
      },
-
-     gigmaker : {
-        type: Boolean,
-        trim: true,
-     },
-
-     gigster : {
-        type: Boolean,
-        trim: true,
-     },
+// default hig
+     gigmaker : 
+      {
+        type: Schema.Types.ObjectId,
+        ref: "User"
+      }, 
+  
+        // 0 to many gigsters
+     gigster :[ ProjectUser ],// [{user_id: 1, approved: false}, {user_id: 2, approved: true}]
 
 
      description : {
@@ -64,6 +70,30 @@ var newProject = new Schema({
        ]
      },
 
+     saved : {
+      type : Boolean,
+      
+     },
+
+     // iso format date
+       start: {
+         type: new Date(),
+
+       },
+
+       // iso format date
+       ending: {
+         type: new Date(),
+       },
+
+
+       duration: {
+         start: new Date() 
+       },
+
+
+  
+
      compensation : {
         type: Boolean,
         trim: true,
@@ -80,10 +110,7 @@ var newProject = new Schema({
        ]
      },
 
-     note: {
-      type: Schema.Types.ObjectId,
-      ref: "Note"
-    },
+  
 
      userCreated: {
         type: Date,
@@ -92,7 +119,7 @@ var newProject = new Schema({
 })
 
 
-var Project = mongoose.model("newProject", newProject);
+var Project = mongoose.model("Project", Project);
 
 
 

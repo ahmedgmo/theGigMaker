@@ -1,35 +1,17 @@
 const passport = require('passport')
 const User = require('../app/models/user')
 const { decrypt } = require('../app/controllers/base')
-const JwtStrategy = require('passport-jwt').Strategy
+const GoogleStrategy = require('passport-google-oauth').OAuth2Strategy;
 
-const jwtExtractor = req => {
-  let token = null
-  if (req.headers.authorization) {
-    token = req.headers.authorization.replace('Bearer ', '').replace(' ', '')
-  } else if (req.body.token) {
-    token = req.body.token.replace(' ', '')
-  } else if (req.query.token) {
-    token = req.query.token.replace(' ', '')
-  }
-  if (token) {
-    token = decrypt(token)
-  }
-  return token
+passport.use(new GoogleStrategy({
+  clientID: GOOGLE_CLIENT_ID,
+  clientSecret: GOOGLE_CLIENT_SECRET,
+  callbackURL: `${PORT}/success`
+},
+
+function(accessToken, refreshToken, profile, done) {
+  User.findOrCreate({ googleId: profile.id}, function(err, user) {
+    return done(err,user);
+  });
 }
-
-const jwtOptions = {
-  jwtFromRequest: jwtExtractor,
-  secretOrKey: process.env.JWT_SECRET
-}
-
-const jwtLogin = new JwtStrategy(jwtOptions, (payload, done) => {
-  User.findById(payload._id, (err, user) => {
-    if (err) {
-      return done(null, false)
-    }
-    return !user ? done(null, false) : done(null, user)
-  })
-})
-
-passport.use(jwtLogin)
+));

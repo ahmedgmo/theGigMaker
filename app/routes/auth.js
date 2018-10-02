@@ -3,10 +3,27 @@ const validate = require('../controllers/auth.validate')
 const express = require('express')
 const router = express.Router()
 const trimRequest = require('trim-request')
+const passport = require('passport')
 
 /*
  ROUTES
 */
+
+router.get(
+  '/auth/google',
+  passport.authenticate('google', {
+    scope: ['https://www.googleapis.com/auth/plus.login']
+  })
+)
+
+router.get(
+  '/auth/google/callback',
+  passport.authenticate('google', { failureRedirect: '/login' }),
+  (req, res) => {
+    res.redirect('/')
+  }
+)
+
 router.post(
   '/register',
   trimRequest.all,

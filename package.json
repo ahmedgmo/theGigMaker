@@ -8,9 +8,9 @@
     "url": "https://github.com/davellanedam/node-express-mongodb-jwt-rest-api-skeleton.git"
   },
   "scripts": {
-    "start": "NODE_ENV=production pm2 start server.js --watch",
+    "start": "start server.js",
     "test": "mocha --timeout=5000",
-    "dev": "NODE_ENV=development nodemon server.js",
+    "dev": "nodemon server.js",
     "fresh": "npm run clean && npm run seed",
     "clean": "node clean.js",
     "seed": "node seed.js",
@@ -33,6 +33,7 @@
     "nodemailer": "^4.6.8",
     "nodemailer-mailgun-transport": "^1.4.0",
     "passport": "^0.4.0",
+    "passport-google-oauth": "^1.0.0",
     "passport-jwt": "^4.0.0",
     "request-ip": "^2.1.1",
     "trim-request": "^1.0.6",

@@ -3,7 +3,7 @@ const { seedDatabase } = require('mongo-seeding')
 const path = require('path')
 
 const config = {
-  databaseConnectionUri: process.env.MONGO_URI,
+  databaseConnectionUri: process.env.MONGO_URL,
   inputPath: path.resolve(__dirname, './data'),
   dropDatabase: false
 }

@@ -1,4 +1,4 @@
-require('dotenv-safe').config()
+// require('dotenv-safe').config()
 const express = require('express')
 const bodyParser = require('body-parser')
 const morgan = require('morgan')
@@ -7,22 +7,17 @@ const helmet = require('helmet')
 const cors = require('cors')
 const passport = require('passport')
 const app = express()
-const initMongo = require('./config/mongo')
+// const initMongo = require('./config/mongo')
 
 // Setup express server
-app.set('port', process.env.PORT || 3000)
+app.set('port', process.env.PORT || 5000)
 
 if (process.env.NODE_ENV === 'development') {
   app.use(morgan('dev'))
 }
-app.use(
-  bodyParser.json({
-    limit: '20mb'
-  })
-)
+app.use(bodyParser.json())
 app.use(
   bodyParser.urlencoded({
-    limit: '20mb',
     extended: true
   })
 ) /* for parsing application/x-www-form-urlencoded ~*/
@@ -35,6 +30,6 @@ app.use(require('./app/routes'))
 app.listen(app.get('port'))
 
 // Init MongoDB
-initMongo()
+// initMongo()
 
 module.exports = app // for testing

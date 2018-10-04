@@ -1,6 +1,6 @@
 
-const express = require('express')
-const router = express.Router()
+const express = require('express');
+const router = express.Router();
 const db = require("../models/projects/index")
 
 
@@ -63,6 +63,27 @@ module.exports = function(router) {
         }
         
         Project.get(query, function(err, data){
+            res.json(data);
+        });
+    });
+
+
+    // collaboration and button rendering
+    // object from front end {}
+
+
+
+    router.post("/api/project-collab-pending:projectid", function (req, res){
+
+        var query = req.body.userInfo;
+        // info will contain projectid, userid(from local storage);
+
+        // var query = {};
+        // if ( req.params.project_id) {
+        //     query._id = req.params.project_id;
+        // }
+        
+        Project.update(query, function(err, data){
             res.json(data);
         });
     });

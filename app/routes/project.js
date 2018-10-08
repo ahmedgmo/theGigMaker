@@ -3,6 +3,7 @@ const express = require('express');
 const router = express.Router();
 const db = require("../models/projects/index")
 
+const Project = require('../controllers/project')
 
 
 
@@ -22,17 +23,26 @@ module.exports = function(router) {
 
 
     // saved projects route
-    router.get("/savedProjects", function(req, res){
+    router.get("/api/savedProjects", function(req, res){
         res.render("saved");
     });
 
 
+    router.get("/api/savedCollaborations", function(req, res){
+        Project.get()
+        res.render("saved");
+    });
+
+
+
     // create new project (creator)
-    router.post("/create-project", function (req, res){
+    router.post("/api/create-project", function (req, res){
         var query = req.body;
            Project.create(query, function (err, data){
-
-           });
+               if (data.result.ok) {
+                res.status(200).send('Project Created!');
+               }
+           })
         });
 
 
@@ -73,17 +83,11 @@ module.exports = function(router) {
 
 
 
-    router.post("/api/project-collab-pending:projectid", function (req, res){
-
-        var query = req.body.userInfo;
-        // info will contain projectid, userid(from local storage);
-
-        // var query = {};
-        // if ( req.params.project_id) {
-        //     query._id = req.params.project_id;
-        // }
+    router.post("/api/project-collab-pending", function (req, res){
+        console.log(req.body)
+        var query = req.body;
         
-        Project.update(query, function(err, data){
+        Project.collab(query, function(err, data){
             res.json(data);
         });
     });

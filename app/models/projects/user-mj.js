@@ -35,23 +35,25 @@ var UserSchema = new Schema({
     default: Date.now
   },
 
-  collaboration: {
-    type: Boolean,
-    default: false
-  },
+
 
   // if collaboration is true populate the user info to the creator
-  AcceptedCollaboration: [
+  projects: [
     {
       type: Schema.Types.ObjectId,
       ref: "Project"
+    }
+  ],
+
+  collaborations: [
+    {
+      type: Schema.Types.ObjectId,
+      ref: "ProjectCollaborator"
     }
   ]
 });
 
 // Custom Instance Methods
-
-// Custom method `coolifier`
 UserSchema.methods.collaborate = function() {
   // Adds "...theCoolest" to the end of the current user's username
   this.username = this.username + "Wants to Collaborate!";

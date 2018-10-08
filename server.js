@@ -15,41 +15,25 @@ const router = express.Router();
 const mongoose = require("mongoose");
 
 // Setup express server
-var PORT = 3000;
+const PORT = process.env.PORT || 3001;
 
 // if (process.env.NODE_ENV === 'development') {
 //   app.use(morgan('dev'))
 // }
-app.use(
-  bodyParser.json({
-    limit: '20mb'
-  })
-)
-app.use(
-  bodyParser.urlencoded({
-    limit: '20mb',
-    extended: true
-  })
-)
-app.use(express.static("public"));
+// Define middleware here
+app.use(bodyParser.urlencoded({ extended: true }));
+app.use(bodyParser.json());
+
+// Serve up static assets (usually on heroku)
+if (process.env.NODE_ENV === "production") {
+  app.use(express.static("client/build"));
+}
 
 
 
-/* for parsing application/x-www-form-urlencoded ~*/
-// app.use(cors())
-// app.use(passport.initialize())
-// app.use(compression())
-// app.use(helmet())
-// app.use(express.static('public'))
-// app.use(require('./app/routes'))
-// app.listen(app.get('port'))
-
-// // Init MongoDB
-// initMongo()
 
 
 var db = process.env.MONGODB_URI || "mongodb://localhost/gigmaker";
-
 
 //routes
 
@@ -58,8 +42,13 @@ require("./app/routes/project")(router);
 app.use(router);
 
 
+// Define API routes here
 
-
+// Send every other request to the React app
+// Define any API routes before this runs
+app.get("*", (req, res) => {
+  res.sendFile(path.join(__dirname, "./client/build/index.html"));
+});
 
 
 app.listen(PORT, function () {
@@ -78,3 +67,22 @@ app.listen(PORT, function () {
 
 
 module.exports = app // for testing
+
+
+
+
+
+
+
+
+/* for parsing application/x-www-form-urlencoded ~*/
+// app.use(cors())
+// app.use(passport.initialize())
+// app.use(compression())
+// app.use(helmet())
+// app.use(express.static('public'))
+// app.use(require('./app/routes'))
+// app.listen(app.get('port'))
+
+// // Init MongoDB
+// initMongo()

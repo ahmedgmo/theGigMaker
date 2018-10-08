@@ -3,11 +3,12 @@
 var Project = require("../models/projects/projects")
 
 module.exports = {
-    create : function (cb){
-      Project.saved = true;
-            
-            Project.collection.insert(query, {ordered: false}, function(err,docs){
+    create : function (query, cb){
+    //   Project.saved = true;
+            console.log(query);
+            Project.collection.insertOne(query, {ordered: false}, function(err,docs){
                 // returns any errors without blocking the scraping
+
                 cb(err,docs);
             });
     },
@@ -21,10 +22,10 @@ collab : function(query,cb){
 
 
 delete : function (query, cb){
-    Project.remove(query,cb);
+    Project.remove({_id:query._id},cb);
 },
 get: function (query, cb){
-    Project.find(query)
+    Project.find({},{$where:{query}})
     .sort({
         _id: -1
     })

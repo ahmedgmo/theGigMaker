@@ -10,7 +10,7 @@ const app = express()
 const initMongo = require('./config/mongo')
 
 // Setup express server
-app.set('port', process.env.PORT || 3000)
+app.set('port', process.env.PORT || 3001)
 
 if (process.env.NODE_ENV === 'development') {
   app.use(morgan('dev'))

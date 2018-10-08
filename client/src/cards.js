@@ -9,43 +9,43 @@ const cards = [
     },
     {
         id: 3,
-        image: require("./images/Courage.png")
+        image: require('./images/Courage.png')
     },
     {
         id: 4,
-        image: require("./images/Dexter.png")
+        image: require('./images/Courage.png')
     },
     {
         id: 5,
-        image: require("./images/Doug.gif")
+        image: require('./images/Courage.png')
     },
     {
         id: 6,
-        image: require("./images/ickis.png")
+        image: require('./images/ickis.png')
     },
     {
         id: 7,
-        image: require("./images/Johnny_Bravo.png")
+        image: require('./images/Johnny_Bravo.png')
     },
     {
         id: 8,
-        image: require("./images/Mr._Krabs.png")
+        image: require('./images/Mr._Krabs.png')
     },
     {
         id: 9,
-        image: require("./images/Rockos.png")
+        image: require('./images/Rockos.png')
     },
     {
         id: 10,
-        image: require("./images/Spongebob.png")
+        image: require('./images/Spongebob.png')
     },
     {
         id: 11,
-        image: require("./images/Squidward.png")
+        image: require('./images/Squidward.png')
     },
     {
         id: 12,
-        image: require("./images/Tommy_Pickles.png")
+        image: require('./images/Tommy_Pickles.png')
     }
 ]
 

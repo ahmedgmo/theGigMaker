@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import {Tabs, Tab} from "react-bootstrap";
 import {Modal, Button} from "react-bootstrap";
 import Card from "../../components/Card";
-import Navbar from "../../components/Navbar";
 import Column from "../../components/Column";
 import Container from "../../components/Container";
 import Row from "../../components/Row";
@@ -38,7 +37,7 @@ class Dashboard extends Component {
   render() {
     return (
       <div>
-      <Navbar />
+      <Container>
       <Tabs
         activeKey={this.state.key}
         onSelect={this.handleSelect}
@@ -105,6 +104,7 @@ class Dashboard extends Component {
             <Button onClick={this.handleHide}>Close</Button>
           </Modal.Footer>
         </Modal>
+            </Container>
       </div>
     );
   }

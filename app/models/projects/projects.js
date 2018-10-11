@@ -65,12 +65,12 @@ var ProjectSchema = new Schema({
   },
 
   // iso format date
-  start: {
+  startDate: {
     type: Date
   },
 
   // iso format date
-  ending: {
+  endDate: {
     type: Date,
   },
 

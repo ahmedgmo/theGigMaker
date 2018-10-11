@@ -19,7 +19,7 @@ delete : function (query, cb){
 },
 
 get: function (query, cb){
-    User.findOne({_id = query.userId})
+    User.findOne(query)
     .sort({
         _id: -1
     })

@@ -8,13 +8,13 @@ const User = require('../controllers/users-mj')
 
 
 
-
+module.exports = function(router) {
 // see all user  saved Projects 
-router.get("/api/savedProjects", function (req, res) {
+router.get("/api/createdProjects", function (req, res) {
     var query = req.body;
     User.get(query, function (err, data) {
         if (data.result.ok) {
-            res.status(200).send('Project Created!');
+            res.status(200).send('Here are your created projects');
         } else {
             console.log(err);
         }
@@ -26,7 +26,7 @@ router.get("/api/savedProjects", function (req, res) {
 router.get("/api/savedCollaborations", function (req, res) {
     var query = req.body;
     User.get(query, function (err, data) {
-        if (data.result.ok) {
+        if (data) {
             res.json(data);
             res.status(200).send('Your collaboration are :' + data.result);
         } else {
@@ -41,9 +41,9 @@ router.get("/api/savedCollaborations", function (req, res) {
 router.post("/api/create-user", function (req, res) {
     var query = req.body;
     User.create(query, function (err, data) {
-        if (data.result.ok) {
-            res.json(data);
-            res.status(200).send('User Created!');
+        if (data) {
+         
+            res.status(200).json(data);
 
         } else {
             console.log(err);
@@ -97,3 +97,5 @@ router.get("/api/project:project_id?", function (req, res) {
      
     });
 });
+
+}

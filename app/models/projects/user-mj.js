@@ -54,12 +54,12 @@ var UserSchema = new Schema({
 });
 
 // Custom Instance Methods
-UserSchema.methods.collaborate = function() {
-  // Adds "...theCoolest" to the end of the current user's username
-  this.username = this.username + "Wants to Collaborate!";
-  // Return the new username
-  return this.username;
-};
+// UserSchema.methods.collaborate = function() {
+//   // Adds "...theCoolest" to the end of the current user's username
+//   this.username = this.username + "Wants to Collaborate!";
+//   // Return the new username
+//   return this.username;
+// };
 
 
 var User = mongoose.model("User", UserSchema);

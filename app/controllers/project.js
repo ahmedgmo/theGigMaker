@@ -16,17 +16,18 @@ module.exports = {
 
 // users need to be validated at this point by the creator
 collab : function(query,cb){
-    Project.update({_id:query._id},{
+    Project.update({_id:query.id},{
        $push: { gigster : {userId : query.userId, approved:false} }
     }, {}, cb);
 },
 
 
 delete : function (query, cb){
-    Project.remove({_id:query._id},cb);
+    Project.deleteOne({_id:query.id},cb);
 },
-get: function (query, cb){
-    Project.find({},{$where:{query}})
+get: function (query,cb){
+   
+    Project.find(query)
     .sort({
         _id: -1
     })
@@ -35,7 +36,7 @@ get: function (query, cb){
     })
 },
 update : function(query,cb){
-    Project.update({_id:query._id},{
+    Project.updateOne({_id:query.id},{
        $set:query 
     }, {}, cb);
     }

@@ -22,14 +22,33 @@ module.exports = function(router) {
     });
 
 
-    // saved projects route
+
+
+    // All projects on the database for viewers to see
+
+    router.get("/api/get-dbprojects", function (req, res){
+        // var query = {}
+        // if ( req.params.id) {
+        //     query.id = req.params.id;
+        // }
+
+        Project.get( function( data){
+        
+            res.status(200).json(data);
+        });
+    });
+
+
+
+    // User get access to all his 
     router.get("/api/savedProjects", function(req, res){
         // res.render("saved");
     });
 
 
     router.get("/api/savedCollaborations", function(req, res){
-        Project.get()
+        query = req.body;
+        Project.get(query);
     });
 
 
@@ -47,34 +66,32 @@ module.exports = function(router) {
 
 
     // delete project (creator)
-    router.delete("/api/delete-project/:id", function (req, res){
+    router.delete("/api/delete-project", function (req, res){
         var query = {};
-        query._id = req.params.id;
+      
+        query._id = req.body.id;
+        console.log(query._id);
+    
         Project.delete(query, function (err,data){
+            if (data){
+                res.status(200).send('project has been deleted');
+            }
 
         });
     });
 
 
     // update content (creator)
-    router.patch("/api/update-project", function (req, res){
+    router.put("/api/update-project", function (req, res){
         Project.update(req.body, function (err, data){
+            if (data){
+                res.status(200).json("project has been updated");
+            }
 
         });
     });
 
 
-    // get all content if id isnt specified , if it is find that specific project
-    router.get("/api/project:project_id?", function (req, res){
-        var query = {};
-        if ( req.params.project_id) {
-            query._id = req.params.project_id;
-        }
-        
-        Project.get(query, function(err, data){
-            res.json(data);
-        });
-    });
 
 
     // collaboration and button rendering

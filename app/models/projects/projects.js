@@ -1,14 +1,16 @@
 const mongoose = require('mongoose');
 
+const collaboratorSchema = require("../projects/collaborations")
+
 const Schema = mongoose.Schema;
 
-const collaboratorSchema = new Schema({
-  userId: {
-    type: Schema.Types.ObjectId,
-    ref: "User"
-  },
-  approved: Boolean,
-});
+// const collaboratorSchema = new Schema({
+//   userId: {
+//     type: Schema.Types.ObjectId,
+//     ref: "User"
+//   },
+//   approved: Boolean,
+// });
 
 var ProjectSchema = new Schema({
 
@@ -40,10 +42,10 @@ var ProjectSchema = new Schema({
     ]
   },
 
-  imageUrl : {
+  imageUrl: {
 
-  type: String,
-  required: "src is required",
+    type: String,
+    // required: "src is required",
 
   },
 
@@ -77,12 +79,12 @@ var ProjectSchema = new Schema({
   },
 
   // iso format date
-  start: {
+  startDate: {
     type: Date
   },
 
   // iso format date
-  ending: {
+  endDate: {
     type: Date,
   },
 
@@ -90,22 +92,6 @@ var ProjectSchema = new Schema({
   duration: {
     start: Date
   },
-
-  compensation: {
-    type: Boolean,
-    trim: true,
-
-
-
-    validate: [
-      function (input) {
-        return input;
-      },
-
-      "This is a free collaboration"
-    ]
-  },
-
 
   projectCreated: {
     type: Date,
@@ -115,6 +101,6 @@ var ProjectSchema = new Schema({
 
 
 var Project = mongoose.model("Project", ProjectSchema);
-var Collaborator = mongoose.model("ProjectCollaborator",collaboratorSchema );
+// var Collaborator = mongoose.model("ProjectCollaborator", collaboratorSchema);
 
-module.exports = {Project,Collaborator}; 
+module.exports =  Project;

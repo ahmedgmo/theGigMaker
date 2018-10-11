@@ -1,9 +1,9 @@
 
 const express = require('express');
 const router = express.Router();
-const db = require("../models/projects/index")
+const db = require("../models/projects/index");
 
-const Project = require('../controllers/project')
+const Project = require('../controllers/project');
 
 
 
@@ -18,19 +18,18 @@ module.exports = function(router) {
 
     // Home route
     router.get("/", function(req,res){
-        res.render("home");
+     res.send("hello there!");
     });
 
 
     // saved projects route
     router.get("/api/savedProjects", function(req, res){
-        res.render("saved");
+        // res.render("saved");
     });
 
 
     router.get("/api/savedCollaborations", function(req, res){
         Project.get()
-        res.render("saved");
     });
 
 
@@ -39,7 +38,7 @@ module.exports = function(router) {
     router.post("/api/create-project", function (req, res){
         var query = req.body;
            Project.create(query, function (err, data){
-               if (data.result.ok) {
+               if (data) {
                 res.status(200).send('Project Created!');
                }
            })

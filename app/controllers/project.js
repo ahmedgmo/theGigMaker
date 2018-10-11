@@ -1,15 +1,16 @@
 
+// Project controller
 
-var Project = require("../models/projects/projects")
+var Project = require("../models/projects/projects");
 
 module.exports = {
     create : function (query, cb){
     //   Project.saved = true;
             console.log(query);
-            Project.collection.insertOne(query, {ordered: false}, function(err,docs){
+            Project.collection.insertOne(query, function(err,docs){
                 // returns any errors without blocking the scraping
 
-                cb(err,docs);
+                cb(docs);
             });
     },
 

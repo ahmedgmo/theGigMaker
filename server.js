@@ -15,11 +15,7 @@ const router = express.Router();
 const mongoose = require("mongoose");
 
 // Setup express server
-<<<<<<< HEAD
-app.set('port', process.env.PORT || 3001)
-=======
 var PORT = 3000;
->>>>>>> e57c62cee306f31e6aeeca63175b96e9b83b118d
 
 // if (process.env.NODE_ENV === 'development') {
 //   app.use(morgan('dev'))
@@ -60,11 +56,6 @@ var db = process.env.MONGODB_URI || "mongodb://localhost/gigmaker";
 require("./app/routes/project")(router);
 
 app.use(router);
-
-
-
-
-
 
 app.listen(PORT, function () {
   mongoose.connect(db, function(err){

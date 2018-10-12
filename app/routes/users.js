@@ -1,57 +1,116 @@
-const controller = require('../controllers/users')
-const validate = require('../controllers/users.validate')
-const AuthController = require('../controllers/auth')
-const express = require('express')
-const router = express.Router()
-require('../../config/passport')
-const passport = require('passport')
-const requireAuth = passport.authenticate('jwt', {
-  session: false
-})
-const trimRequest = require('trim-request')
 
-/*
- ROUTES
-*/
+const express = require('express');
+const router = express.Router();
+const db = require("../models/projects/index")
+const User = require('../controllers/users-mj')
 
-router.get(
-  '/',
-  requireAuth,
-  AuthController.roleAuthorization(['admin']),
-  trimRequest.all,
-  controller.getItems
-)
-router.post(
-  '/',
-  requireAuth,
-  AuthController.roleAuthorization(['admin']),
-  trimRequest.all,
-  validate.createItem,
-  controller.createItem
-)
-router.get(
-  '/:id',
-  requireAuth,
-  AuthController.roleAuthorization(['admin']),
-  trimRequest.all,
-  validate.getItem,
-  controller.getItem
-)
-router.patch(
-  '/:id',
-  requireAuth,
-  AuthController.roleAuthorization(['admin']),
-  trimRequest.all,
-  validate.updateItem,
-  controller.updateItem
-)
-router.delete(
-  '/:id',
-  requireAuth,
-  AuthController.roleAuthorization(['admin']),
-  trimRequest.all,
-  validate.deleteItem,
-  controller.deleteItem
-)
 
-module.exports = router
+
+
+module.exports = function(router) {
+// see all user  saved Projects 
+router.get("/api/createdProjects", function (req, res) {
+    var query = req.body;
+    User.get(query, function (err, data) {
+        if (data.result.ok) {
+            res.status(200).send('Here are your created projects');
+        } else {
+            console.log(err);
+        }
+    });
+});
+
+
+// see all user collaborations 
+router.get("/api/savedCollaborations", function (req, res) {
+    var query = req.body;
+    User.get(query, function (err,docs, data) {
+        if (docs.result.ok) {
+            
+            res.status(200).json('Your collaboration are : ' + data);
+        } else {
+            console.log(err);
+        }
+    });
+});
+
+
+// get user info 
+
+router.get("/api/get-dbuser/:id", function (req, res){
+    var query = {}
+    if ( req.params.id) {
+        query.id = req.params.id;
+    }
+
+    Project.get( function( data){
+    
+        res.status(200).json(data);
+    });
+});
+
+
+// Create User
+router.post("/api/create-user", function (req, res) {
+    var query = req.body;
+    User.create(query, function (err, docs, data) {
+        console.log(data + "data");
+        if (docs.result.ok == 1) {
+            console.log(data)
+            res.status(200).json(docs);
+        } else {
+            console.log(err);
+        }
+    })
+});
+
+
+
+// delete user
+router.delete("/api/delete-user/:id", function (req, res) {
+    var query = {};
+    query.id = req.params.id;
+    User.delete(query, function (err, data) {
+        if (data) {
+            res.status(200).send('User Deleted!');
+        } else {
+            console.log(err);
+        }
+    });
+});
+
+
+// update user info
+router.put("/api/update-user", function (req, res) {
+
+
+    User.update(req.body, function (err, data) {
+        if (data) {
+            res.status(200).send('User updated!');
+           } else {
+               console.log(err);
+           }
+
+    });
+});
+
+
+// get project specific information or all users
+router.get("/api/project/:project_id?", function (req, res) {
+    var query = {};
+    if (req.params.project_id) {
+        query._id = req.params.project_id;
+    }
+    Project.get(query, function (err, data) {
+        if (data.result.ok) {
+            res.json(data);
+            res.status(200).send('User Search was a success!');
+        
+           } else {
+               console.log(err);
+           }
+     
+    });
+});
+
+}

@@ -27,7 +27,7 @@ var UserSchema = new Schema({
   email: {
     type: String,
     unique: true,
-    match: [/.+@.+\..+/, "Please enter a valid e-mail address"]
+    // match: [/.+@.+\..+/, "Please enter a valid e-mail address"]
   },
  
   userCreated: {
@@ -45,21 +45,14 @@ var UserSchema = new Schema({
     }
   ],
 
-  collaborations: [
+  gigster: [
     {
       type: Schema.Types.ObjectId,
-      ref: "ProjectCollaborator"
+      ref: "ProjectCollaborators"
     }
   ]
 });
 
-// Custom Instance Methods
-// UserSchema.methods.collaborate = function() {
-//   // Adds "...theCoolest" to the end of the current user's username
-//   this.username = this.username + "Wants to Collaborate!";
-//   // Return the new username
-//   return this.username;
-// };
 
 
 var User = mongoose.model("User", UserSchema);

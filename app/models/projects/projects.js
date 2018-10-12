@@ -1,6 +1,6 @@
 const mongoose = require('mongoose');
 
-// const collaboratorSchema = require("../projects/collaborations")
+
 
 const Schema = mongoose.Schema;
 
@@ -101,6 +101,6 @@ var ProjectSchema = new Schema({
 
 
 var Project = mongoose.model("Project", ProjectSchema);
-var Collaborator = mongoose.model("ProjectCollaborator", collaboratorSchema);
+var Collaborator = mongoose.model("ProjectCollaborators", collaboratorSchema);
 
 module.exports =  Project, Collaborator;

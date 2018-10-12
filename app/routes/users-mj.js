@@ -2,7 +2,6 @@
 const express = require('express');
 const router = express.Router();
 const db = require("../models/projects/index")
-
 const User = require('../controllers/users-mj')
 
 
@@ -36,15 +35,29 @@ router.get("/api/savedCollaborations", function (req, res) {
 });
 
 
+// get user info 
+
+router.get("/api/get-dbuser/:id", function (req, res){
+    var query = {}
+    if ( req.params.id) {
+        query.id = req.params.id;
+    }
+
+    Project.get( function( data){
+    
+        res.status(200).json(data);
+    });
+});
+
 
 // Create User
 router.post("/api/create-user", function (req, res) {
     var query = req.body;
-    User.create(query, function (err, data) {
-        if (data) {
-         
-            res.status(200).json(data);
-
+    User.create(query, function (err, docs, data) {
+        console.log(data + "data");
+        if (docs.result.ok == 1) {
+            console.log(data)
+            res.status(200).json(docs);
         } else {
             console.log(err);
         }
@@ -54,11 +67,11 @@ router.post("/api/create-user", function (req, res) {
 
 
 // delete user
-router.delete("/api/delete-project/:id", function (req, res) {
+router.delete("/api/delete-user/:id", function (req, res) {
     var query = {};
-    query._id = req.params.id;
+    query.id = req.params.id;
     User.delete(query, function (err, data) {
-        if (data.result.ok) {
+        if (data) {
             res.status(200).send('User Deleted!');
         } else {
             console.log(err);
@@ -68,9 +81,11 @@ router.delete("/api/delete-project/:id", function (req, res) {
 
 
 // update user info
-router.put("/api/update-project", function (req, res) {
-    Project.update(req.body, function (err, data) {
-        if (data.result.ok) {
+router.put("/api/update-user", function (req, res) {
+
+
+    User.update(req.body, function (err, data) {
+        if (data) {
             res.status(200).send('User updated!');
            } else {
                console.log(err);
@@ -80,8 +95,8 @@ router.put("/api/update-project", function (req, res) {
 });
 
 
-// get user specific information or all users
-router.get("/api/project:project_id?", function (req, res) {
+// get project specific information or all users
+router.get("/api/project/:project_id?", function (req, res) {
     var query = {};
     if (req.params.project_id) {
         query._id = req.params.project_id;

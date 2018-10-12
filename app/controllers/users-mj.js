@@ -4,10 +4,11 @@ module.exports = {
 create : function (query, cb){
 //   Project.saved = true;
     console.log(query);
-    User.collection.insertOne(query, {ordered: false}, function(err,docs){
+ return   User.collection.insertOne(query, {ordered: false}, function(err,docs){
         // returns any errors without blocking the scraping
 
-        cb(err,docs);
+        console.log(docs + "Docs");
+        cb(err,docs,query);
     });
 },
 
@@ -15,11 +16,13 @@ create : function (query, cb){
 
 
 delete : function (query, cb){
-    User.remove(query,cb);
+    console.log(query);
+User.deleteOne({_id:query.id},cb);
 },
 
-get: function (query, cb){
-    User.findOne(query)
+get: function (query,cb){
+   
+    User.find(query)
     .sort({
         _id: -1
     })
@@ -29,8 +32,8 @@ get: function (query, cb){
 },
 
 update : function(query,cb){
-    User.update({_id:query._id},{
-       $set:{query} 
+    Project.updateOne({_id:query.id},{
+       $set:query 
     }, {}, cb);
     }
 }

@@ -56,9 +56,11 @@ module.exports = function(router) {
     // create new project (creator)
     router.post("/api/create-project", function (req, res){
         var query = req.body;
-           Project.create(query, function (err, data){
-               if (data) {
-                res.status(200).send('Project Created!');
+           Project.create(query, function (err, docs, data){
+               console.log(docs);
+               if (docs.result.ok == 1) {
+                   console.log(data);
+                    res.status(200).send('Project Created!');
                }
            })
         });

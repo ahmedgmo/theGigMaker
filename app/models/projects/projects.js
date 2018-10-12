@@ -101,6 +101,6 @@ var ProjectSchema = new Schema({
 
 
 var Project = mongoose.model("Project", ProjectSchema);
-// var Collaborator = mongoose.model("ProjectCollaborators", collaboratorSchema);
+var Collaborator = mongoose.model("ProjectCollaborators", collaboratorSchema);
 
 module.exports =  Project, Collaborator;

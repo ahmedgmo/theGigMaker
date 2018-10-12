@@ -12,16 +12,10 @@ var UserSchema = new Schema({
     required: "Username is Required"
   },
 
-  password: {
+  googleId: {
     type: String,
     trim: true,
     required: "Password is Required",
-    validate: [
-      function(input) {
-        return input.length >= 6;
-      },
-      "Password should be longer."
-    ]
   },
 
   email: {

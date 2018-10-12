@@ -4,7 +4,7 @@
 
 module.exports = {
     Project: require("./projects"),
-    User: require("./user-mj")
+    User: require("./users")
   
   };
   

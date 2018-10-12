@@ -1,4 +1,4 @@
-var User = require("../models/projects/user-mj")
+var User = require("../models/projects/users")
 
 module.exports = {
 create : function (query, cb){

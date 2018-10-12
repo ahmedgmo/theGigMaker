@@ -15,3 +15,5 @@ module.exports = () => {
     return modelFile !== 'index' ? require(`./${modelFile}`) : ''
   })
 }
+
+

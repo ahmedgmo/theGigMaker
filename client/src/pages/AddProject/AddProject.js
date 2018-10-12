@@ -3,8 +3,8 @@ import { TextArea, Input, FormBtn} from "../../components/Form";
 import Column from "../../components/Column";
 import Container from "../../components/Container";
 import Row from "../../components/Row";
+import Button from "../../components/Button";
 import DatePicker from "react-datepicker";
-import moment from "moment";
 import 'react-datepicker/dist/react-datepicker.css';
 import API from "../../utils/API";
 import axios from "axios";
@@ -23,7 +23,8 @@ class AddProject extends Component {
         endDate: null,
         imageUrl: "",
         message: "",
-        loading: false
+        loading: false,
+        amount: null
       }
     }
 
@@ -62,6 +63,7 @@ class AddProject extends Component {
       const startDate = this.state.startDate
       const endDate = this.state.endDate
       const imageUrl = this.state.imageUrl
+      const amount = this.state.amount
    
       const userInput = {
         title,
@@ -69,17 +71,16 @@ class AddProject extends Component {
         location,
         startDate,
         endDate,
-        imageUrl
+        imageUrl,
+        amount
       }
 
       API.createProject({
         userInput
       })
       .then(res => {
-        this.setState({
-          loading:false,
-          message: response.userInput
-        })
+        console.log(res);
+        window.location.href = "/dashboard";
       })
       .catch(err => {
         this.setState({
@@ -97,6 +98,7 @@ class AddProject extends Component {
     //   const startDate = this.state.startDate
     //   const endDate = this.state.endDate
     //   const imageUrl = this.state.imageUrl
+    //   const amount = this.state.amount
 
     //   this.setState({
     //     loading:true
@@ -108,10 +110,11 @@ class AddProject extends Component {
     //     location,
     //     startDate,
     //     endDate,
-    //     imageUrl
+    //     imageUrl,
+    //     amount
     //   }
 
-    //   axios.post(" /t/tt0mq-1539193578/post", userInput)
+    //   axios.post("/t/px6v2-1539295871/post", userInput)
     //   .then(response => {
     //     this.setState({
     //       loading:false,
@@ -124,6 +127,18 @@ class AddProject extends Component {
     //     })
     //   })
     // }
+
+    handleShowRadioChange = () => {
+      this.setState({
+        show: true
+      });
+    }
+
+    handleHideRadioChange = () => {
+      this.setState({
+        show: false
+      })
+    }
 
     loadOrShowMsg = () => {
       if(this.state.loading)
@@ -149,21 +164,29 @@ class AddProject extends Component {
                     value={this.state.title} 
                     name="title" 
                     placeholder="Title (Required)"
-                    onChange={this.dataChange.bind(this)} />
+                    onChange={this.dataChange.bind(this)} 
+                    required
+                    />
                   </label>
                   <label>
                     Description:
                     <TextArea 
                     value={this.state.description}
                     onChange={this.dataChange.bind(this)}
-                    name="description" placeholder="Description (Required 1000 Characters)" />
+                    name="description" 
+                    placeholder="Description (Required 1000 Characters)" 
+                    required
+                    />
                   </label>
                   <label>
                     Location:
                     <Input 
                     value={this.state.location}
                     onChange={this.dataChange.bind(this)}
-                    name="location" placeholder="Address or Postal Code (Required)" />
+                    name="location" 
+                    placeholder="Address or Postal Code (Required)" 
+                    required
+                    />
                   </label>
                   <label>
                     Start Date:
@@ -175,6 +198,7 @@ class AddProject extends Component {
                             endDate={this.state.endDate}
                             onChange={this.handleStart}
                             placeholderText="Start Date"
+                            required
                           />
                   </label>
                   <label>
@@ -187,6 +211,7 @@ class AddProject extends Component {
                             endDate={this.state.endDate}
                             onChange={this.handleEnd}
                             placeholderText="End Date"
+                            required
                           />
                   </label>
                   <label>
@@ -197,25 +222,25 @@ class AddProject extends Component {
                     value={this.state.imageUrl}
                     type="text" placeholder="Enter Image URL" required />
                   </label>
-                  
-                  {/* <label >
-                    Compensation: {' '}
-                    <form style={{ display: "inlineBlock" }}>
-                      <label style={{ marginRight: "80px" }}>
-                        Paid
-                      <Input 
-                      type="radio" name="radioGroup" onClick={() => this.handleShowRadioChange()} />
-                      </label>
-                      <label>
-                        Not Paid
-                        <Input type="radio" name="radioGroup" onClick={() => this.handleHideRadioChange()} />
-                      </label>
-                    </form>
+                  <div>
+                  <label>
+                    <h4>Compensation: </h4>
+                    {
+                        this.state.show ?
+                        <label>
+                          Budget per Gigster: 
+                          <Input 
+                          value={this.state.amount}
+                          onChange={this.dataChange.bind(this)}
+                          type="number" name="amount" 
+                          min="1"/>
+                        </label>
+                        : null
+                    }
+                    <Button type="button" onClick={() => this.handleShowRadioChange()}>Paid?</Button> {' '}
+                    <Button type="button" onClick={() => this.handleHideRadioChange()}>Not Paid?</Button>
                   </label>
-                  <label show={this.state.show}>
-                    Amount:
-                      <Input type="number" name="amount" />
-                  </label> */}
+                  </div>
                   <FormBtn>
                     Post
                   </FormBtn>

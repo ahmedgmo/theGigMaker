@@ -1,8 +1,10 @@
 const mongoose = require('mongoose');
 
+// const collaboratorSchema = require("../projects/collaborations")
+
 const Schema = mongoose.Schema;
 
-const ProjectUserSchema = new Schema({
+const collaboratorSchema = new Schema({
   userId: {
     type: Schema.Types.ObjectId,
     ref: "User"
@@ -39,6 +41,16 @@ var ProjectSchema = new Schema({
       "Location is required"
     ]
   },
+
+  imageUrl: {
+
+    type: String,
+    // required: "src is required",
+
+  },
+
+
+
   // default gigmaker 
   gigmaker:
   {
@@ -46,8 +58,10 @@ var ProjectSchema = new Schema({
     ref: "User"
   },
 
+
+
   // 0 to many gigsters
-  gigster: [ProjectUserSchema],// [{user_id: 1, approved: false}, {user_id: 2, approved: true}]
+  gigster: [collaboratorSchema],// [{user_id: 1, approved: false}, {user_id: 2, approved: true}]
 
 
   description: {
@@ -57,7 +71,7 @@ var ProjectSchema = new Schema({
     validate: [
 
       function (input) {
-        return input.length <= 250;
+        return input.length <= 400;
       },
 
       "Location is required"
@@ -79,23 +93,7 @@ var ProjectSchema = new Schema({
     start: Date
   },
 
-  compensation: {
-    type: Boolean,
-    trim: true,
-    required: "Description is required",
-
-
-    validate: [
-      function (input) {
-        return input;
-      },
-
-      "This is a free collaboration"
-    ]
-  },
-
-
-  userCreated: {
+  projectCreated: {
     type: Date,
     default: Date.now
   },
@@ -103,5 +101,6 @@ var ProjectSchema = new Schema({
 
 
 var Project = mongoose.model("Project", ProjectSchema);
+var Collaborator = mongoose.model("ProjectCollaborator", collaboratorSchema);
 
-module.exports = Project; 
+module.exports =  Project, Collaborator;

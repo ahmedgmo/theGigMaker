@@ -58,7 +58,22 @@ class Dashboard extends Component {
           </Row>
         </Container>
         </Tab>
-        <Tab eventKey={2} title="Other Projects">
+        <Tab eventKey={2} title="My Collaborations">
+        <Container>
+          <Row>
+            {this.state.cards.map(card => (
+              <Column key={card.id}>
+                <Card
+                  id={card.id}
+                  image={card.image}
+                  handleShow={this.handleShow}
+                />
+              </Column>
+            ))}
+          </Row>
+        </Container>
+        </Tab>
+        <Tab eventKey={3} title="Other Projects">
         <Container>
           <Row>
             {this.state.cards.map(card => (
@@ -99,6 +114,7 @@ class Dashboard extends Component {
               laudantium quibusdam quidem corporis architecto veritatis. Ex
               facilis minima beatae sunt perspiciatis placeat. Quasi corporis
             </p>
+
           </Modal.Body>
           <Modal.Footer>
             <Button onClick={this.handleHide}>Close</Button>

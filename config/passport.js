@@ -5,9 +5,12 @@ const GoogleStrategy = require('passport-google-oauth').OAuth2Strategy
 passport.use(
   new GoogleStrategy(
     {
-      clientID: process.env.GOOGLE_CLIENT_ID,
-      clientSecret: process.env.GOOGLE_CLIENT_SECRET,
-      callbackURL: process.env.GOOGLE_CALLBACK_URL
+      clientID:
+        process.env.GOOGLE_CLIENT_ID ||
+        '513188597183-aschf9rpomu1oak1kgprdoj36n5tk7cu.apps.googleusercontent.com',
+      clientSecret:
+        process.env.GOOGLE_CLIENT_SECRET || 'SDP6IcKVwhowgJAgPJex9PBT',
+      callbackURL: process.env.GOOGLE_CALLBACK_URL || 'google/callback'
     },
 
     (accessToken, refreshToken, profile, done) => {

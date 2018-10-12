@@ -53,7 +53,6 @@ module.exports = function(router) {
 
 
 
-
     // create new project (creator)
     router.post("/api/create-project", function (req, res){
         var query = req.body;
@@ -115,7 +114,7 @@ module.exports = function(router) {
     // user is linked to the project 
     // Trello is populated upon acceptance
     // adding notes
-    router.post("/api/project-collab-pending/:id", function (req, res){
+    router.post("/api/project-collab-pending", function (req, res){
         console.log(req.body)
         var query = req.body;
         

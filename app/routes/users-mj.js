@@ -24,10 +24,10 @@ router.get("/api/createdProjects", function (req, res) {
 // see all user collaborations 
 router.get("/api/savedCollaborations", function (req, res) {
     var query = req.body;
-    User.get(query, function (err, data) {
-        if (data) {
-            res.json(data);
-            res.status(200).send('Your collaboration are :' + data.result);
+    User.get(query, function (err,docs, data) {
+        if (docs.result.ok) {
+            
+            res.status(200).json('Your collaboration are : ' + data);
         } else {
             console.log(err);
         }

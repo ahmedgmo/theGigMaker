@@ -27,7 +27,7 @@ get: function (query,cb){
         _id: -1
     })
     .exec(function(err,docs){
-        cb(docs);
+        cb(err,docs,query);
     })
 },
 

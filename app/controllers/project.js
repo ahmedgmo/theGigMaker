@@ -6,9 +6,13 @@ var Project = require("../models/projects/projects");
 module.exports = {
     create : function (query, cb){
     //   Project.saved = true;
-            Project.collection.insertOne(query, function(err,docs,data){
+        
+        return   Project.collection.insertOne(query, function(err,docs){
+
+          
                 // returns any errors without blocking the scraping
-                cb(err,docs,data);
+
+                cb(err,docs,query);
             });
     },
 

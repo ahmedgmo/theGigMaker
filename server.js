@@ -25,9 +25,10 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 
 // // Serve up static assets (usually on heroku)
-// if (process.env.NODE_ENV === "production") {
-//   app.use(express.static("client/build"));
-// }
+if (process.env.NODE_ENV === "production") {
+  app.use(express.static("client/build"));
+}
+
 
 var db = process.env.MONGODB_URI || "mongodb://localhost/gigmaker";
 
@@ -37,8 +38,10 @@ var db = process.env.MONGODB_URI || "mongodb://localhost/gigmaker";
 require("./app/routes/project")(router);
 // user routes
 
-require("./app/routes/users-mj")(router);
+require("./app/routes/users")(router);
 app.use(router);
+
+
 // Define API routes here
 
 // Send every other request to the React app
@@ -46,6 +49,8 @@ app.use(router);
 // app.get("*", (req, res) => {
 //   res.sendFile(path.join(__dirname, "./client/build/index.html"));
 // });
+
+
 app.listen(PORT, function () {
   mongoose.connect(db, function(err){
     if (err) {
@@ -58,8 +63,6 @@ app.listen(PORT, function () {
 
   console.log("App running on port " + PORT + "!");
 });
-
-
 
 module.exports = app // for testing
 

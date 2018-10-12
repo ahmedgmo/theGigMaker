@@ -39,7 +39,7 @@ var db = process.env.MONGODB_URI || "mongodb://localhost/gigmaker";
 require("./app/routes/project")(router);
 // user routes
 
-require("./app/routes/users-mj")(router);
+require("./app/routes/users")(router);
 app.use(router);
 
 

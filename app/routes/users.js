@@ -2,7 +2,7 @@
 const express = require('express');
 const router = express.Router();
 const db = require("../models/projects/index")
-const User = require('../controllers/users-mj')
+const User = require('../controllers/users')
 
 
 

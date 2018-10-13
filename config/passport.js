@@ -1,6 +1,7 @@
 const passport = require('passport')
 const User = require('../app/models/projects/users')
 const GoogleStrategy = require('passport-google-oauth').OAuth2Strategy
+const axios = require('axios')
 
 passport.use(
   new GoogleStrategy(
@@ -17,7 +18,7 @@ passport.use(
       User.findOne(
         { googleid: profile.id }.then(currentUser => {
           if (currentUser) {
-            console.log(`user is: ${currentUser}`)
+            axios.post(`/api/get-dbuser/${currentUser._id}`)
           } else {
             new User({
               username: profile.displayName,
@@ -26,7 +27,7 @@ passport.use(
             })
               .save()
               .then(newUser => {
-                console.log(`new user created: ${newUser}`)
+                axios.post(`/api/get-dbuser/${newUser._id}`)
               })
           }
         })

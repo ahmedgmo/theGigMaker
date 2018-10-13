@@ -1,5 +1,5 @@
 const mongoose = require('mongoose')
-const DB_URL = process.env.MONGO_URI
+const DB_URL = process.env.MONGO_URL
 const loadModels = require('../app/models')
 
 module.exports = () => {

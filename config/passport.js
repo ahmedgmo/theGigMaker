@@ -14,10 +14,23 @@ passport.use(
     },
 
     (accessToken, refreshToken, profile, done) => {
-      User.findOrCreate({ googleId: profile.id }, (err, user) => {
-        console.log(accessToken, refreshToken)
-        return done(err, user)
-      })
+      User.findOne(
+        { googleid: profile.id }.then(currentUser => {
+          if (currentUser) {
+            console.log(`user is: ${currentUser}`)
+          } else {
+            new User({
+              username: profile.displayName,
+              email: profile.emails,
+              googleid: profile.id
+            })
+              .save()
+              .then(newUser => {
+                console.log(`new user created: ${newUser}`)
+              })
+          }
+        })
+      )
     }
   )
 )

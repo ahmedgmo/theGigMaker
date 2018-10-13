@@ -8,8 +8,6 @@ module.exports = {
     //   Project.saved = true;
         
         return   Project.collection.insertOne(query, function(err,docs){
-
-          
                 // returns any errors without blocking the scraping
 
                 cb(err,docs,query);

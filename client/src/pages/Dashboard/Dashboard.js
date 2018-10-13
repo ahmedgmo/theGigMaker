@@ -1,11 +1,12 @@
 import React, { Component } from 'react';
-import {Tabs, Tab} from "react-bootstrap";
+import {Tabs, Tab, Thumbnail} from "react-bootstrap";
 import {Modal, Button} from "react-bootstrap";
 import Card from "../../components/Card";
 import Column from "../../components/Column";
 import Container from "../../components/Container";
 import Row from "../../components/Row";
 import cards from "../../cards.js";
+import API from "../../utils/API";
 
 class Dashboard extends Component {
   constructor(props, context) {
@@ -18,7 +19,8 @@ class Dashboard extends Component {
     this.state = {
       key: 1,
       cards,
-      show: false
+      show: false,
+      saved: []
     };
   }
 
@@ -33,6 +35,14 @@ class Dashboard extends Component {
   handleHide = () => {
     this.setState({ show: false });
   }
+
+  getAllSaved = () =>{
+    API.getdbProjects()
+    .then(res => this.setState({
+      saved: [...res.data]
+    }))
+    .catch(err => console.log(err));
+  };
 
   render() {
     return (
@@ -76,15 +86,22 @@ class Dashboard extends Component {
         <Tab eventKey={3} title="Other Projects">
         <Container>
           <Row>
-            {this.state.cards.map(card => (
-              <Column key={card.id}>
-                <Card
-                  id={card.id}
-                  image={card.image}
-                  handleShow={this.handleShow}
-                />
+              {this.state.saved.length ? (
+                <Column>
+                  {this.state.saved.map((saved) => (
+                    <Thumbnail
+                    key={saved._id}
+                    src={saved.imageUrl}
+                    >
+                    <h3>{saved.title}</h3>
+                    <p>{saved.location}</p>
+                    </Thumbnail>
+                  ))}
+              
               </Column>
-            ))}
+              ) : (
+                <h3>No projects </h3>
+              )}
           </Row>
         </Container>
         </Tab>

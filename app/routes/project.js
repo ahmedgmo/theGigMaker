@@ -32,7 +32,7 @@ module.exports = function(router) {
         //     query.id = req.params.id;
         // }
 
-        Project.get( function( data){
+        Project.get( function(data){
         
             res.status(200).json(data);
         });
@@ -56,10 +56,8 @@ module.exports = function(router) {
     // create new project (creator)
     router.post("/api/create-project", function (req, res){
         var query = req.body;
-           Project.create(query, function (err, docs, data){
-               console.log(docs);
-               if (docs.result.ok == 1) {
-                   console.log(data);
+           Project.create(query, function (err, docs, data) {
+               if (docs.result.ok) {
                     res.status(200).send('Project Created!');
                }
            })

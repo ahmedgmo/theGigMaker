@@ -9,9 +9,11 @@ import cards from '../../cards.js';
 import API from '../../utils/API';
 import { FormBtn } from '../../components/Form';
 import { LoggerOptions } from 'mongodb'
-import "../../images"
 
+const image = require("../../images/signinbtn.png");
 class Login extends Component {
+
+    
 
     loginmethod = () => {
         API.login()
@@ -30,7 +32,7 @@ class Login extends Component {
                     <h3>Help others and find help!</h3>
                 </div>
                 <div>
-                    <a href="/auth/google"><img src="sigininbtn.png" onClick={() => {this.loginmethod.bind(this)}} /></a>
+                    <a href="/auth/google"><img src={image} onClick={() => {this.loginmethod.bind(this)}} /></a>
                 </div>
             </div>
                 )

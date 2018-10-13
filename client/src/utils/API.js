@@ -7,6 +7,10 @@ const api = {
 
     getdbProjects: () => {
         return axios.get('/api/get-dbprojects')
+    },
+
+    collabProject: (projectId) => {
+        return axios.post('/api/project-collab-pending', projectId )
     }
 }
 

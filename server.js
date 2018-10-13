@@ -12,7 +12,6 @@ const morgan = require('morgan');
 const app = express();
 const router = express.Router();
 
-
 const mongoose = require("mongoose");
 
 // Setup express server
@@ -65,16 +64,7 @@ app.listen(PORT, function () {
   console.log("App running on port " + PORT + "!");
 });
 
-
-
 module.exports = app // for testing
-
-
-
-
-
-
-
 
 /* for parsing application/x-www-form-urlencoded ~*/
 // app.use(cors())

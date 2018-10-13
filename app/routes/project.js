@@ -28,7 +28,7 @@ module.exports = function(router) {
     // Upon click the id headline belonging to a project is sent
     // the database sends back specific info for that project
 
-    router.post("/api/get-dbprojects/:id?", function (req, res){
+    router.get("/api/get-dbprojects/:id?", function (req, res){
         var query = {}
         if ( req.params.id) {
             query._id = req.params.id;

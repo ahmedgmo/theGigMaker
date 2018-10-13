@@ -36,10 +36,10 @@ class Dashboard extends Component {
     this.setState({ show: false });
   }
 
-  getAllSaved = () =>{
+  getAllSaved = () => {
     API.getdbProjects()
     .then(res => this.setState({
-      saved: [...res.data]
+      saved: [...res]
     }))
     .catch(err => console.log(err));
   };
@@ -83,7 +83,7 @@ class Dashboard extends Component {
           </Row>
         </Container>
         </Tab>
-        <Tab eventKey={3} title="Other Projects">
+        <Tab eventKey={3} title="Other Projects" onClick={this.getAllSaved.bind(this)}>
         <Container>
           <Row>
               {this.state.saved.length ? (

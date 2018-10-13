@@ -7,7 +7,6 @@ import Button from "../../components/Button";
 import DatePicker from "react-datepicker";
 import 'react-datepicker/dist/react-datepicker.css';
 import API from "../../utils/API";
-import axios from "axios";
 
 class AddProject extends Component {
 
